@@ -52,4 +52,8 @@ private EventService service;
         eventDTO = newEventDTO; // useless. just for example
         return eventDTO;
     }
+    @PostMapping(value = "")
+    public EventDTO createEvent(@RequestBody EventDTO eventDTO){
+    return  service.createEvent(eventDTO);
+    }
 }

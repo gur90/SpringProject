@@ -1,5 +1,6 @@
 package com.example.servingwebcontent;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,11 @@ import java.util.stream.Collectors;
 @Service
 @Primary
 public class EventService {
+    private  EventRepository eventRepository;
+    @Autowired
+    public void setEventRepository(EventRepository eventRepository){
+        this.eventRepository=eventRepository;
+    }
     static final List<EventDTO> EVENT_DTOS = new ArrayList<EventDTO>() {{
         add(new EventDTO("violin concert", "Prague"));
         add(new EventDTO("jazz concert", "Berlin"));
@@ -18,12 +24,20 @@ public class EventService {
     }};
 
     List<EventDTO>getEvents(String cityFilter){
-        List<EventDTO> results = EVENT_DTOS;
-        if (!cityFilter.equals("all")) {
-            results = EVENT_DTOS.stream().filter(e -> e.getCity().equals(cityFilter)).collect(Collectors.toList());
-            // model.addAttribute("events", cityEvents);
+        Iterable<Event> allEvents = eventRepository.findAll();
+        List<EventDTO> result = new ArrayList<EventDTO>();
+        for (Event event : allEvents)
+        {
+            EventDTO eventDTO = new EventDTO(event.getName(), event.getCity());
+            result.add(eventDTO);
         }
-        return results;
+        return result;
+//        List<EventDTO> results = EVENT_DTOS;
+//        if (!cityFilter.equals("all")) {
+//            results = EVENT_DTOS.stream().filter(e -> e.getCity().equals(cityFilter)).collect(Collectors.toList());
+//            // model.addAttribute("events", cityEvents);
+//        }
+//        return results;
     }
     public EventDTO getEvent(int id)
     {
@@ -40,7 +54,12 @@ public class EventService {
 
     public EventDTO createEvent(EventDTO eventDTO)
     {
-        // TODO save to database
+        String name= eventDTO.getName();
+        String city= eventDTO.getCity();
+       Event event=new Event();
+       event.setName(name);
+       event.setCity(city);
+       eventRepository.save(event);
         return eventDTO;
     }
 

@@ -48,14 +48,20 @@ public class ArtistsController {
             @ApiResponse(responseCode = "400", description = "invalid input")})
             @DeleteMapping(value = "/{artistId}")
             public ArtistDTO deleteArtist(@PathVariable int artistId) {
-     ArtistDTO artistDTO = service.deleteArtist(artistId);
-     return artistDTO;
-    }
+        return service.deleteArtist(artistId);
 
+    }
+    @Operation(summary = "Post new artist")
+    @PostMapping(value = "")
+    public ArtistDTO createArtist(@RequestBody ArtistDTO artistDTO){
+        return  service.createArtist(artistDTO);
+    }
     @Operation(summary = "Put  artists", description = "Put new artists")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful"),
             @ApiResponse(responseCode = "400", description = "invalid input")})
+
+
 
     @PutMapping(value = "/{artistId}")
     public ArtistDTO updateArtist(@PathVariable int artistId, @RequestBody ArtistDTO newArtistDTO) {
