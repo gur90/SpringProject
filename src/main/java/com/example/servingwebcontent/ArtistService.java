@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,13 +43,14 @@ public class ArtistService {
     }
 
     public ArtistDTO getArtist(int id) {
-        ArtistDTO artistDTO = ARTIST_DTOS.get(id);
+        Optional<Artist> artistOptional=artistRepository.findById(id);
+        Artist artist=artistOptional.get();
+        ArtistDTO artistDTO= new ArtistDTO(artist.getName(),artist.getGenre());
         return artistDTO;
     }
 
-    public ArtistDTO deleteArtist(int id) {
-        ArtistDTO artistDTO = ARTIST_DTOS.get(id);
-        return artistDTO;
+    public void deleteArtist(int id) {
+       artistRepository.deleteById(id);
     }
 public ArtistDTO createArtist(ArtistDTO artistDTO){
         String name= artistDTO.getName();
@@ -59,10 +61,11 @@ public ArtistDTO createArtist(ArtistDTO artistDTO){
         artistRepository.save(artist);
         return  artistDTO;
 }
-    public ArtistDTO updateArtist(int id, ArtistDTO newArtistDTO) {
-        ArtistDTO artistDTO = ARTIST_DTOS.get(id);
-        artistDTO = newArtistDTO;
-        return artistDTO;
+    public void updateArtist(int id, ArtistDTO newArtistDTO) {
+        Artist artist = artistRepository.findById(id).get();
+        artist.setName(newArtistDTO.getName());
+        artist.setGenre(newArtistDTO.getGenre());
+        artistRepository.save(artist);
 
     }
 }

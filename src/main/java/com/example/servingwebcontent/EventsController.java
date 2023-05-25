@@ -40,17 +40,17 @@ private EventService service;
     // @ResponseBody
     @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "something is going bad")
     @DeleteMapping(value = "/{eventId}")
-    public EventDTO deleteEvent(@PathVariable int eventId) {
-        EventDTO eventDTO = service.deleteEvent(eventId);
-        return eventDTO;
+    public void deleteEvent(@PathVariable int eventId) {
+    service.deleteEvent(eventId);
+       // return eventDTO;
     }
     @Operation(summary = "Put events", description = "Put new event")
     @PutMapping(value = "/{eventId}")
-    public EventDTO updateEvent(@PathVariable int eventId, @RequestBody EventDTO newEventDTO) {
-        EventDTO eventDTO = service.updateEvent(eventId, newEventDTO);
-        // TODO: update event in database
-        eventDTO = newEventDTO; // useless. just for example
-        return eventDTO;
+    public void updateEvent(@PathVariable int eventId, @RequestBody EventDTO newEventDTO) {
+        service.updateEvent(eventId, newEventDTO);
+
+//        eventDTO = newEventDTO; // useless. just for example
+//        return eventDTO;
     }
     @PostMapping(value = "")
     public EventDTO createEvent(@RequestBody EventDTO eventDTO){

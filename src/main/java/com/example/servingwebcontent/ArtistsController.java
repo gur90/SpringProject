@@ -47,8 +47,8 @@ public class ArtistsController {
             @ApiResponse(responseCode = "200", description = "successful"),
             @ApiResponse(responseCode = "400", description = "invalid input")})
             @DeleteMapping(value = "/{artistId}")
-            public ArtistDTO deleteArtist(@PathVariable int artistId) {
-        return service.deleteArtist(artistId);
+            public void deleteArtist(@PathVariable int artistId) {
+       service.deleteArtist(artistId);
 
     }
     @Operation(summary = "Post new artist")
@@ -64,9 +64,8 @@ public class ArtistsController {
 
 
     @PutMapping(value = "/{artistId}")
-    public ArtistDTO updateArtist(@PathVariable int artistId, @RequestBody ArtistDTO newArtistDTO) {
-       ArtistDTO artistDTO = service.updateArtist(artistId, newArtistDTO);
-       artistDTO = newArtistDTO;
-       return artistDTO;
+    public void updateArtist(@PathVariable int artistId, @RequestBody ArtistDTO newArtistDTO) {
+       service.updateArtist(artistId, newArtistDTO);
+
     }
 }
