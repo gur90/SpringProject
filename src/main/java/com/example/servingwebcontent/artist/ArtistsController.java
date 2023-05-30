@@ -1,4 +1,4 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.artist;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,10 @@ import java.util.List;
 public class ArtistsController {
  private ArtistService service;
     //@RequestMapping(value="/artists", method= RequestMethod.GET)
+@Autowired
+    public ArtistsController(ArtistService service) {
+        this.service = service;
+    }
 
     @Operation(summary = "Get all artists", description = "Get all artists filtered by genre")
     //@ResponseStatus(code = HttpStatus.OK, reason = "OK")

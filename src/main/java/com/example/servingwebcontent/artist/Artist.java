@@ -1,4 +1,4 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.artist;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +13,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Event {
+public class Artist {
     @GeneratedValue
     @Id
     private int id;
     private String name;
-    private String city;
-
+    private String genre;
 }

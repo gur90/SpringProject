@@ -1,4 +1,4 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.event;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -52,6 +52,7 @@ private EventService service;
 //        eventDTO = newEventDTO; // useless. just for example
 //        return eventDTO;
     }
+    @Operation(summary = "create event")
     @PostMapping(value = "")
     public EventDTO createEvent(@RequestBody EventDTO eventDTO){
     return  service.createEvent(eventDTO);

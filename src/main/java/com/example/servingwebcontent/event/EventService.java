@@ -1,5 +1,6 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.event;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -7,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Primary
 public class EventService {
     private EventRepository eventRepository;
+private static final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     public void setEventRepository(EventRepository eventRepository) {
@@ -40,7 +41,9 @@ public class EventService {
     public EventDTO getEvent(int id) {
         Optional<Event> eventOptional = eventRepository.findById(id);
         Event event = eventOptional.get();
-        EventDTO eventDTO = new EventDTO(event.getName(), event.getCity());
+        //EventDTO eventDTO = new EventDTO(event.getName(), event.getCity());
+
+        EventDTO eventDTO =modelMapper.map(event, EventDTO.class);
         return eventDTO;
     }
 
@@ -50,11 +53,13 @@ public class EventService {
     }
 
     public EventDTO createEvent(EventDTO eventDTO) {
-        String name = eventDTO.getName();
-        String city = eventDTO.getCity();
-        Event event = new Event();
-        event.setName(name);
-        event.setCity(city);
+
+       Event event= modelMapper.map(eventDTO,Event.class);
+//        String name = eventDTO.getName();
+//        String city = eventDTO.getCity();
+//        Event event = new Event();
+//        event.setName(name);
+//        event.setCity(city);
         eventRepository.save(event);
         return eventDTO;
     }

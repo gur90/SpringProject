@@ -1,17 +1,17 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.artist;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistService {
     private ArtistRepository artistRepository;
-
+private static final ModelMapper modelMapper=new ModelMapper();
     @Autowired
     public void setArtistRepository(ArtistRepository artistRepository) {
         this.artistRepository = artistRepository;
@@ -45,27 +45,25 @@ public class ArtistService {
     public ArtistDTO getArtist(int id) {
         Optional<Artist> artistOptional=artistRepository.findById(id);
         Artist artist=artistOptional.get();
-        ArtistDTO artistDTO= new ArtistDTO(artist.getName(),artist.getGenre());
+        ArtistDTO artistDTO= modelMapper.map(artist, ArtistDTO.class);
         return artistDTO;
     }
 
     public void deleteArtist(int id) {
-       artistRepository.deleteById(id);
+
+        artistRepository.deleteById(id);
     }
 public ArtistDTO createArtist(ArtistDTO artistDTO){
-        String name= artistDTO.getName();
-        String genre=artistDTO.getGenre();
-        Artist artist = new Artist();
-        artist.setName(name);
-        artist.setGenre(genre);
+       Artist artist= modelMapper.map(artistDTO, Artist.class);
         artistRepository.save(artist);
         return  artistDTO;
 }
     public void updateArtist(int id, ArtistDTO newArtistDTO) {
         Artist artist = artistRepository.findById(id).get();
-        artist.setName(newArtistDTO.getName());
+
+       artist.setName(newArtistDTO.getName());
         artist.setGenre(newArtistDTO.getGenre());
-        artistRepository.save(artist);
+       artistRepository.save(artist);
 
     }
 }
