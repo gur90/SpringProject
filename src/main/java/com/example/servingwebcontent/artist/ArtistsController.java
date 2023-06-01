@@ -58,7 +58,7 @@ public class ArtistsController {
     }
     @Operation(summary = "Post new artist")
     @PostMapping(value = "")
-    public ArtistDTO createArtist(@RequestBody ArtistDTO artistDTO){
+    public int createArtist(@RequestBody NewArtistDTO artistDTO){
         return  service.createArtist(artistDTO);
     }
     @Operation(summary = "Put  artists", description = "Put new artists")
@@ -69,7 +69,7 @@ public class ArtistsController {
 
 
     @PutMapping(value = "/{artistId}")
-    public void updateArtist(@PathVariable int artistId, @RequestBody ArtistDTO newArtistDTO) {
+    public void updateArtist(@PathVariable int artistId, @RequestBody NewArtistDTO newArtistDTO) {
        service.updateArtist(artistId, newArtistDTO);
 
     }

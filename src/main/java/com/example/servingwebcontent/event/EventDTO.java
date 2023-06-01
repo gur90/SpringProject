@@ -1,5 +1,7 @@
 package com.example.servingwebcontent.event;
 
+import com.example.servingwebcontent.place.Place;
+import com.example.servingwebcontent.place.PlaceDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+public
 class EventDTO {
     @Schema(description = "Name of the event")
     @Getter
@@ -16,6 +19,7 @@ class EventDTO {
     @Schema(description = "Location of the event")
     @Getter
     @Setter
-    private String city;
+            //private String city;
+    private PlaceDTO place;
 }
 

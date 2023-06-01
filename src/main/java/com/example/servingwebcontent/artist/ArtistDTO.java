@@ -1,11 +1,12 @@
 package com.example.servingwebcontent.artist;
 
+import com.example.servingwebcontent.genre.GenreDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-class ArtistDTO {
+public class ArtistDTO {
     @Schema(description = "Name of artist")
     @Getter
     @Setter
@@ -13,6 +14,6 @@ class ArtistDTO {
     @Schema(description = "Genre of play")
     @Getter
     @Setter
-    private String genre;
+    private GenreDTO genre;
 
 }

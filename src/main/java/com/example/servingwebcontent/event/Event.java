@@ -1,9 +1,7 @@
 package com.example.servingwebcontent.event;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.servingwebcontent.place.Place;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +20,9 @@ public class Event {
     private int id;
     @NotNull
     private String name;
+//    @NotNull
+//    private String city;
+    @ManyToOne
     @NotNull
-    private String city;
-
+private Place place;
 }

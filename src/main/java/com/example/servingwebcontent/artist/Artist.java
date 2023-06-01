@@ -1,9 +1,7 @@
 package com.example.servingwebcontent.artist;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.servingwebcontent.genre.Genre;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +20,7 @@ public class Artist {
     private int id;
    @NotNull
     private String name;
+   @ManyToOne
    @NotNull
-    private String genre;
+    private Genre genre;
 }
