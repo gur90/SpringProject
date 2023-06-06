@@ -1,5 +1,7 @@
 package com.example.servingwebcontent.event;
 
+import com.example.servingwebcontent.artist.Artist;
+import com.example.servingwebcontent.place.Place;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +56,9 @@ private EventService service;
     }
     @Operation(summary = "create event")
     @PostMapping(value = "")
-    public int createEvent(@RequestBody NewEventDTO newEventDTO){
+    public int createEvent(@RequestBody NewEventDTO newEventDTO, int placeId, int artistId){
 
-    return  service.createEvent(newEventDTO);
+    return  service.createEvent(newEventDTO, placeId,artistId);
 
     }
 }

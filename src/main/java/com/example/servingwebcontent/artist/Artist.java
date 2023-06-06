@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "artists")
 public class Artist {
    // @GeneratedValue
    @GeneratedValue(strategy = GenerationType.IDENTITY)

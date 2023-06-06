@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.event;
 
+import com.example.servingwebcontent.artist.Artist;
 import com.example.servingwebcontent.place.Place;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -20,9 +21,13 @@ public class Event {
     private int id;
     @NotNull
     private String name;
-//    @NotNull
+    //    @NotNull
 //    private String city;
     @ManyToOne
     @NotNull
-private Place place;
+    private Place place;
+    @ManyToOne
+    @JoinColumn(name = "artist_ref_id", referencedColumnName = "id")
+    private Artist artist;
+
 }

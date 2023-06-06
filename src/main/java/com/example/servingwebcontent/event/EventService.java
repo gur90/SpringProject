@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.event;
 
+import com.example.servingwebcontent.artist.Artist;
 import com.example.servingwebcontent.place.Place;
 import com.example.servingwebcontent.place.PlaceRepository;
 import org.modelmapper.ModelMapper;
@@ -53,8 +54,8 @@ public class EventService {
 
     }
 
-    public int createEvent(NewEventDTO newEventDTO) {
-        int placeId = newEventDTO.getPlaceId();
+    public int createEvent(NewEventDTO newEventDTO, int placeId, int artistId) {
+       // int placeId = newEventDTO.getPlaceId();
         Place place = placeRepository.findById(placeId).get();
         Event event = new Event();
         event.setName(newEventDTO.getName());
@@ -63,24 +64,12 @@ public class EventService {
 
     }
 
-//    public EventDTO createEvent(EventDTO eventDTO) {
-//
-//       Event event= modelMapper.map(eventDTO,Event.class);
-////        String name = eventDTO.getName();
-////        String city = eventDTO.getCity();
-////        Event event = new Event();
-////        event.setName(name);
-////        event.setCity(city);
-//        eventRepository.save(event);
-//        return eventDTO;
-//    }
 
     public void updateEvent(int id, NewEventDTO eventDTO) {
         Optional<Event> eventOptional = eventRepository.findById(id);
         Event event = eventOptional.get();
         event.setName(eventDTO.getName());
         Place place = placeRepository.findById(eventDTO.getPlaceId()).get();
-
         event.setPlace(place);
         eventRepository.save(event);
 
