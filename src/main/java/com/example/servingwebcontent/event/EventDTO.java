@@ -1,5 +1,7 @@
 package com.example.servingwebcontent.event;
 
+import com.example.servingwebcontent.artist.Artist;
+import com.example.servingwebcontent.artist.ArtistDTO;
 import com.example.servingwebcontent.place.Place;
 import com.example.servingwebcontent.place.PlaceDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,5 +23,9 @@ class EventDTO {
     @Setter
             //private String city;
     private PlaceDTO place;
+    @Getter
+    @Setter
+           //artistDTO
+    private ArtistDTO artist;
 }
 

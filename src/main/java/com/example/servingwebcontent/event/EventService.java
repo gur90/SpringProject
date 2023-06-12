@@ -1,6 +1,7 @@
 package com.example.servingwebcontent.event;
 
 import com.example.servingwebcontent.artist.Artist;
+import com.example.servingwebcontent.artist.ArtistRepository;
 import com.example.servingwebcontent.place.Place;
 import com.example.servingwebcontent.place.PlaceRepository;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,12 @@ import java.util.Optional;
 public class EventService {
     private EventRepository eventRepository;
     private PlaceRepository placeRepository;
+    private ArtistRepository artistRepository;
+
+    @Autowired
+    public void setArtistRepository(ArtistRepository artistRepository) {
+        this.artistRepository = artistRepository;
+    }
 
     @Autowired
     public void setPlaceRepository(PlaceRepository placeRepository) {
@@ -32,10 +39,16 @@ public class EventService {
     }
 
 
-
     List<EventDTO> getEvents(String cityFilter) {
-        List<Event>allEvents =eventRepository.findAll();
-        List<EventDTO> result=modelMapper.map(allEvents,new TypeToken<List<EventDTO>>(){}.getType());
+        List<Event> allEvents;
+        if(!cityFilter.equals("all")){
+            allEvents = eventRepository.findAll();
+        }else {
+            allEvents = eventRepository.findFilteredByCity(cityFilter);
+        }
+
+        List<EventDTO> result = modelMapper.map(allEvents, new TypeToken<List<EventDTO>>() {
+        }.getType());
         return result;
 
     }
@@ -47,6 +60,7 @@ public class EventService {
 
         EventDTO eventDTO = modelMapper.map(event, EventDTO.class);
         return eventDTO;
+
     }
 
     public void deleteEvent(int id) {
@@ -54,23 +68,31 @@ public class EventService {
 
     }
 
-    public int createEvent(NewEventDTO newEventDTO, int placeId, int artistId) {
-       // int placeId = newEventDTO.getPlaceId();
+    // delete args
+    public int createEvent(NewEventDTO newEventDTO) {
+       int placeId = newEventDTO.getPlaceId();
+       int artistId = newEventDTO.getArtistId();
         Place place = placeRepository.findById(placeId).get();
+        Artist artist = artistRepository.findById(artistId).get();
         Event event = new Event();
         event.setName(newEventDTO.getName());
         event.setPlace(place);
+        event.setArtist(artist);
         return eventRepository.save(event).getId();
-
     }
 
 
-    public void updateEvent(int id, NewEventDTO eventDTO) {
-        Optional<Event> eventOptional = eventRepository.findById(id);
-        Event event = eventOptional.get();
+    public void updateEvent(int id,  NewEventDTO eventDTO) {
+       // Optional<Artist> artistOptional = artistRepository.findById(id);
+       // Artist artist = artistOptional.get();
+
+       Optional<Event> eventOptional = eventRepository.findById(id);
+       Event event= eventOptional.get();
         event.setName(eventDTO.getName());
         Place place = placeRepository.findById(eventDTO.getPlaceId()).get();
+        Artist artist = artistRepository.findById(eventDTO.getArtistId()).get();
         event.setPlace(place);
+        event.setArtist(artist);
         eventRepository.save(event);
 
     }
@@ -80,7 +102,14 @@ public class EventService {
         List<Event> eventsForPlace = place.getEvents();
         List<EventDTO> result = modelMapper.map(eventsForPlace, new TypeToken<List<EventDTO>>() {
         }.getType());
-return result;
+        return result;
     }
 
+    public List<EventDTO> getEventsForArtist(int artistId) {
+        Artist artist = artistRepository.findById(artistId).get();
+        List<Event> eventsForArtist = artist.getEvents();
+        List<EventDTO> result = modelMapper.map(eventsForArtist, new TypeToken<List<EventDTO>>() {
+        }.getType());
+        return result;
+    }
 }

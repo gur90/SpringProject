@@ -1,5 +1,7 @@
 package com.example.servingwebcontent.place;
 
+import com.example.servingwebcontent.artist.ArtistDTO;
+import com.example.servingwebcontent.artist.ArtistService;
 import com.example.servingwebcontent.event.Event;
 import com.example.servingwebcontent.event.EventDTO;
 import com.example.servingwebcontent.event.EventService;
@@ -16,6 +18,12 @@ import java.util.List;
 public class PlaceController {
     private PlaceService placeService;
     private EventService eventsService;
+    private ArtistService artistService;
+
+    @Autowired
+    public void setArtistService(ArtistService artistService) {
+        this.artistService = artistService;
+    }
 
     @Autowired
     public void setEventsService(EventService eventsService) {
@@ -43,4 +51,18 @@ public class PlaceController {
     public List<EventDTO> getEventsByPlace(@PathVariable int placeId) {
         return eventsService.getEventsByPlace(placeId);
     }
+
+    @GetMapping(value = "/{placeId}/artists")
+    public List<ArtistDTO> getArtistsByPlaceId(@PathVariable int placeId) {
+        return artistService.getArtistByPlaceId(placeId);
+    }
+    @GetMapping(value = "/by-city/{city}")
+    public List<PlaceDTO> getPlaceByCity(@PathVariable String city){
+        return placeService.getPlaceByCityName(city);
+    }
+    @GetMapping(value = "/by-city/{city}/address/{address}")
+    public List<PlaceDTO> getPlacesByCityAndAddress(@PathVariable String city, @PathVariable String address ){
+        return placeService.getPlacesByCityWithAddress(city,address);
+    }
+
 }

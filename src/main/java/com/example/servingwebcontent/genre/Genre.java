@@ -23,5 +23,7 @@ public class Genre {
     private String genre;
     @OneToMany(mappedBy = "genre")
     private List<Artist> artists;
+    @ManyToMany(mappedBy = "genres")
+    private List<Artist> artistsG;
 
 }

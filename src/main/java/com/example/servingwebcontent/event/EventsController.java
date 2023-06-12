@@ -48,17 +48,18 @@ private EventService service;
     }
     @Operation(summary = "Put events", description = "Update event")
     @PutMapping(value = "/{eventId}")
-    public void updateEvent(@PathVariable int eventId, @RequestBody NewEventDTO newEventDTO) {
-        service.updateEvent(eventId, newEventDTO);
+
+    public void updateEvent( int id,  @RequestBody NewEventDTO newEventDTO) {
+        service.updateEvent(id, newEventDTO);
 
 //        eventDTO = newEventDTO; // useless. just for example
 //        return eventDTO;
     }
     @Operation(summary = "create event")
     @PostMapping(value = "")
-    public int createEvent(@RequestBody NewEventDTO newEventDTO, int placeId, int artistId){
+    public int createEvent(@RequestBody NewEventDTO newEventDTO){
 
-    return  service.createEvent(newEventDTO, placeId,artistId);
+    return  service.createEvent(newEventDTO);
 
     }
 }

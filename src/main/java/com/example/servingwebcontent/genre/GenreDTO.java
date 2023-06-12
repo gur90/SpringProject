@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GenreDTO {
-    private int id2;
+   //private int id2;
     private int id;
     private String genre;
 }

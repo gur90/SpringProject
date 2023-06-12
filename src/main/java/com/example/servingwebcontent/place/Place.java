@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.place;
 
+import com.example.servingwebcontent.artist.Artist;
 import com.example.servingwebcontent.event.Event;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -27,4 +28,9 @@ public class Place {
     private String city;
     @OneToMany(mappedBy = "place")
     private List<Event> events;
+
+    @ManyToMany(mappedBy = "places")
+
+    private List<Artist>artists;
+
 }
