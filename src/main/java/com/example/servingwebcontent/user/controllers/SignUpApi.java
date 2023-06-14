@@ -1,5 +1,7 @@
-package com.example.servingwebcontent.user;
+package com.example.servingwebcontent.user.controllers;
 
+import com.example.servingwebcontent.user.NewUserDTO;
+import com.example.servingwebcontent.user.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

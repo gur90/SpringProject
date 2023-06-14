@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static com.example.servingwebcontent.user.UserDTO.from;
+
 @RequiredArgsConstructor
 @Service
 public class SignUpServiceImpl implements SignUpService{
@@ -20,9 +22,6 @@ public class SignUpServiceImpl implements SignUpService{
 
         usersRepository.save(user);
 
-        return UserDTO.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .build();
+        return from(user);
     }
 }
