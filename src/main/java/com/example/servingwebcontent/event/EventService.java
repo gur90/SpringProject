@@ -83,9 +83,6 @@ public class EventService {
 
 
     public void updateEvent(int id,  NewEventDTO eventDTO) {
-       // Optional<Artist> artistOptional = artistRepository.findById(id);
-       // Artist artist = artistOptional.get();
-
        Optional<Event> eventOptional = eventRepository.findById(id);
        Event event= eventOptional.get();
         event.setName(eventDTO.getName());

@@ -5,7 +5,7 @@ import com.example.servingwebcontent.genre.Genre;
 import com.example.servingwebcontent.genre.GenreRepository;
 import com.example.servingwebcontent.place.Place;
 import com.example.servingwebcontent.place.PlaceRepository;
-import jakarta.persistence.GeneratedValue;
+import javax.persistence.GeneratedValue;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;

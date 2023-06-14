@@ -2,8 +2,8 @@ package com.example.servingwebcontent.place;
 
 import com.example.servingwebcontent.artist.Artist;
 import com.example.servingwebcontent.event.Event;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
